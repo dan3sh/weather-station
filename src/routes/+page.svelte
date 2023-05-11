@@ -1,5 +1,5 @@
 <script>
-	import Some from "../components/Some.svelte";
+	import Location from "../components/Location.svelte";
 </script>
 
-<Some />
+<Location />
