@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	let location = null;
+	import City from './City.svelte';
+	export let location = null;
 	let fetching = false;
 
 	function getPosition() {
@@ -10,9 +11,9 @@
 				const { latitude: lat, longitude: lon } = position.coords;
 				location = { lat, lon };
 				fetching = false;
+				console.log(location);
 			},
 			(error) => {
-				location = null;
 				fetching = false;
 				console.log("Nope, Geolocation still isn't enabled.");
 			}
@@ -36,9 +37,6 @@
 		</p>
 	{/if}
 	{#if location}
-		<div class="city">
-			{location.lat}<br />
-			{location.lon}
-		</div>
+		<City coords={location}/>
 	{/if}
 {/if}
