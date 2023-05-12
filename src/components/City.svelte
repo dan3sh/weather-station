@@ -10,12 +10,12 @@
     $: getCity(coords);
 
 </script>
-<h1>City</h1>
+<h1>Location</h1>
 {#if location}
-<main>
+<div class=info>
     <div class="city">
-        <h3>{location.city}</h3>
-        <h3>{location.country}</h3>
+        {location.city}<br>
+        {location.country}
     </div>
-</main>
+</div>
 {/if}
