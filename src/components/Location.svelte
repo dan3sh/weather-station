@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import City from './City.svelte';
+	import OpenWeather from './OpenWeather.svelte';
 	export let location = null;
 	let fetching = false;
 
@@ -38,5 +39,6 @@
 	{/if}
 	{#if location}
 		<City coords={location}/>
+		<OpenWeather coords={location}/>
 	{/if}
 {/if}
