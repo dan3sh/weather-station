@@ -10,7 +10,6 @@
     $: getCity(coords);
 
 </script>
-<h1>Location</h1>
 {#if location}
 <div class=info>
     <div class="city">
@@ -19,3 +18,10 @@
     </div>
 </div>
 {/if}
+
+
+<style>
+    .city {
+      text-align: center;
+    }
+</style>
