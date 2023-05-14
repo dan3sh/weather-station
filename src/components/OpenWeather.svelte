@@ -1,6 +1,10 @@
 <script>
 	export let coords;
 	let weather;
+	let uvi = {
+		openWeather: null,
+		openUV: null
+	};
 
 	export async function getOpenWeather(coords) {
 		const response = await fetch(`/api/open-weather?lat=${coords.lat}&lon=${coords.lon}`);
@@ -14,21 +18,39 @@
 			humidity: weather_data.humidity,
 			pressure: weather_data.pressure,
 			wind_deg: weather_data.wind_deg,
-			wind_speed: weather_data.wind_speed
+			wind_speed: weather_data.wind_speed,
+			clouds: weather_data.clouds
 		};
-		console.log(weather);
+		uvi.openWeather = weather.uvi;
+	}
+
+	export async function getOpenUV(coords) {
+		const response = await fetch(`/api/uv?lat=${coords.lat}&lon=${coords.lon}`);
+		const uvi_data = await response.json();
+		uvi.openUV = calculateUVI(uvi_data);
+	}
+
+	function calculateUVI(uvi_data) {
+        "Because the returned UVI is raw, we need to account for the real atmosphere situation"
+		let clouds = weather.clouds / 100;
+		if (clouds >= 0.2 && clouds < 0.7) uvi_data = uvi_data * 0.89;
+		else if (clouds >= 0.7 && clouds < 0.9) uvi_data = uvi_data * 0.73;
+		else if (clouds >= 0.9) uvi_data = uvi_data * 0.31;
+		else uvi_data;
+		return uvi_data.toFixed(2);
 	}
 
 	$: getOpenWeather(coords);
+	$: getOpenUV(coords);
 </script>
+
 {#if weather}
-<section class="icon">
-    <div class="weather_icon">
-        <i class="wi wi-day-cloudy" />
-    </div>
-</section>
-<section class="bottom">
-        <h3>OpenWeather</h3>
+	<section class="icon">
+		<div class="weather_icon">
+			<i class="wi wi-day-cloudy" />
+		</div>
+	</section>
+	<section class="bottom">
 		<div class="weather_data">
 			<div>
 				<div class="weathericons air_temperature" />
@@ -36,7 +58,13 @@
 			</div>
 			<div>
 				<div class="weathericons uv_index" />
-				<span>UVI {weather.uvi}</span>
+				<span
+					>UVI {
+                        Math.min(uvi.openWeather, uvi.openUV)
+                    } - {
+                        Math.max(uvi.openWeather, uvi.openUV)
+					}
+                </span>
 			</div>
 			<div>
 				<div class="weathericons pressure" />

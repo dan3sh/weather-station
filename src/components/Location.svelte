@@ -14,7 +14,6 @@
 				const { latitude: lat, longitude: lon } = position.coords;
 				location = { lat, lon };
 				fetching = false;
-				console.log(location);
 			},
 			(error) => {
 				fetching = false;
