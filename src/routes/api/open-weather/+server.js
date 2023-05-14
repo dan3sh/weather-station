@@ -5,7 +5,7 @@ export async function GET({ url }) {
 	const lon = url.searchParams.get('lon');
 	const res = await fetch(
 		`${WEATHER_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${
-			import.meta.env.VITE_API_KEY
+			import.meta.env.VITE_OPEN_WEATHER_API_KEY
 		}&exclude=minutely,hourly,daily,alerts&units=metric`
 	);
 	const data = await res.json();

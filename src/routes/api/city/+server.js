@@ -5,7 +5,7 @@ export async function GET({url}) {
     const lat = url.searchParams.get('lat');
     const lon = url.searchParams.get('lon');
     let location;
-    const res = await fetch(`${GEO_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_API_KEY}`)
+    const res = await fetch(`${GEO_ENDPOINT}?lat=${lat}&lon=${lon}&appid=${import.meta.env.VITE_OPEN_WEATHER_API_KEY}`)
     const data = await res.json();
     if (res.ok) {
         location = {
