@@ -58,7 +58,7 @@
 			</div>
 			<div>
 				<div class="weathericons uv_index" />
-				<span
+				<span title='OpenWeather: {uvi.openWeather}, OpenUV: {uvi.openUV}' 
 					>UVI {
                         Math.min(uvi.openWeather, uvi.openUV)
                     } - {
