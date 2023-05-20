@@ -56,16 +56,21 @@
 				<div class="weathericons air_temperature" />
 				<span>Air {weather.temperature} &degC</span>
 			</div>
-			<div>
-				<div class="weathericons uv_index" />
-				<span title='OpenWeather: {uvi.openWeather}, OpenUV: {uvi.openUV}' 
-					>UVI {
+            <a href="#uv-detail" class="more">
+                <div>
+                    <div class="weathericons uv_index" />
+                    <span>UVI {
                         Math.min(uvi.openWeather, uvi.openUV)
                     } - {
                         Math.max(uvi.openWeather, uvi.openUV)
-					}
-                </span>
-			</div>
+                    }
+                    </span>
+                </div>
+            </a>
+            <div id="uv-detail">
+                <span>OpenWeather: {uvi.openWeather}</span><br>
+                <span>OpenUV: {uvi.openUV}</span>
+            </div>
 			<div>
 				<div class="weathericons pressure" />
 				<span>Pressure {weather.pressure} hPa</span>
@@ -83,3 +88,30 @@
 {:else}
 	<p>Loading weather data...</p>
 {/if}
+
+<style>
+    #uv-detail {
+        margin-left: 45px;
+        display: none;
+        height: 0;
+        font-size: 1rem;
+        -moz-transition: all 0.4s ease;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+    .more:hover + #uv-detail {
+        display: block;
+        height:100%;
+        -moz-transition: all 0.4s ease;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+    .more {
+        text-decoration: none;
+        color: whitesmoke;
+    }
+    .more span {
+        text-decoration: underline !important;
+    }
+</style>
